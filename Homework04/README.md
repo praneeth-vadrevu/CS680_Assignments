@@ -1,7 +1,7 @@
 HW4: Observer Design Pattern in Airplane Reservation System
 
 Overview
-Demonstrates the Observer Design Pattern in an Airplane Reservation System, enabling objects to react to changes without tight coupling.
+Demonstrates the Observer Design Pattern in an Airplane Reservation System.
 
 Key Components
 1. Observable.java: Manages observers and notifies them of changes.
@@ -26,4 +26,4 @@ Test Files
 - PassengerNotifierTest.java: Checks PassengerNotifier sends notifications.
 
 Conclusion
-The Observer Pattern decouples the subject (FlightStatusTracker) from observers, ensuring scalable and maintainable code with automatic updates.
+The Observer Pattern enables a decoupled and scalable design for flight status tracking, automatically updating observers without direct dependencies on the FlightStatusTracker.
