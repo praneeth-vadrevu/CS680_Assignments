@@ -1,10 +1,12 @@
 package umbcs680.observer;
+import java.util.List;
+import java.util.LinkedList;
 
-public class FlightStatusEvent {
+public class FlightEvent {
     private String flightNumber;
     private String status;
 
-    public FlightStatusEvent(String flightNumber, String status) {
+    public FlightEvent(String flightNumber, String status) {
         this.flightNumber = flightNumber;
         this.status = status;
     }
