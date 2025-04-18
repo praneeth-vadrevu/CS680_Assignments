@@ -2,11 +2,11 @@ import java.time.*;
 import java.util.*;
 
 
-public class Directory extends FSElements {
+public class Directory extends FSElement {
     private LinkedList<FSElement> children = new LinkedList<>();
 
     //    Constructor function
-    public void Directory(Directory parent, String name, int size, LocalDateTime creationTime) {
+    public Directory(Directory parent, String name, int size, LocalDateTime creationTime) {
         super(parent, name, size, creationTime);
     }
 
@@ -45,7 +45,7 @@ public class Directory extends FSElements {
 
     public LinkedList<File> getFiles() {
         LinkedList<File> files = new LinkedList<>();
-        for (FSElement element : child) {
+        for (FSElement element : children) {
             if (!element.isDirectory()) {
                 files.add((File) element);
             }
@@ -54,10 +54,10 @@ public class Directory extends FSElements {
     }
 
     public int getTotalSize() {
-        int totalSize;
+        int totalSize = 0;
         for (FSElement element : children) {
             if (element.isDirectory()) {
-                totalSize += ((Directory) element).getTotoalSize();
+                totalSize += ((Directory) element).getTotalSize();
 //             so that we can account for the files inside the directories.
             } else {
                 totalSize += element.getSize();

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Homework_06" default="compile" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <!-- Define project properties -->
+    <property name="Homework_06.src.main.dir" value="src/main"/>
+    <property name="Homework_06.src.test.dir" value="src/test"/>
+    <property name="Homework_06.build.main.dir" value="build/main"/>
+    <property name="Homework_06.build.test.dir" value="build/test"/>
+    <property name="Homework_06.lib.dir" value="lib"/>
+    <property name="ivy.jar" value="/opt/homebrew/opt/ivy/libexec/lib/ivy-2.5.3.jar"/>
+
+
+    <!-- ===================== Download Dependencies ======================== -->
+    <target name="download" description="Download dependencies using Ivy">
+        <mkdir dir="${Homework_06.lib.dir}"/>
+        <ivy:retrieve/>
+    </target>
+
+    <!-- ===================== Initialize Project =========================== -->
+    <target name="init" depends="download" description="Initialize project build structure">
+        <!-- Create necessary build directories -->
+        <mkdir dir="${Homework_06.build.main.dir}"/>
+        <mkdir dir="${Homework_06.build.test.dir}"/>
+        <path id="classpath">
+            <pathelement location="${Homework_06.build.main.dir}"/>
+            <pathelement location="${Homework_06.build.test.dir}"/>
+            <fileset dir="${Homework_06.lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+        <echo message="CLASSPATH: ${toString:classpath}"/>
+    </target>
+
+    <!-- ===================== Compile Main Sources ========================= -->
+    <target name="compile" depends="init" description="Compile main source code">
+        <javac srcdir="${Homework_06.src.main.dir}" destdir="${Homework_06.build.main.dir}" includeAntRuntime="false">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <!-- ===================== Compile Test Sources ========================= -->
+    <target name="compile-tests" depends="compile" description="Compile test source code">
+        <javac srcdir="${Homework_06.src.test.dir}" destdir="${Homework_06.build.test.dir}" includeAntRuntime="false">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <!-- ===================== Run Tests ==================================== -->
+    <target name="test" depends="compile-tests" description="Run JUnit tests">
+        <mkdir dir="report"/>
+        <junit printsummary="yes" haltonfailure="yes" fork="yes">
+            <classpath>
+                <pathelement location="${Homework_06.build.main.dir}"/>
+                <pathelement location="${Homework_06.build.test.dir}"/>
+                <fileset dir="${Homework_06.lib.dir}">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <batchtest fork="yes" todir="report">
+                <fileset dir="${Homework_06.src.test.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- ===================== Clean Project ================================ -->
+    <target name="clean" description="Clean up build directories and reports">
+        <delete dir="${Homework_06.build.main.dir}"/>
+        <delete dir="${Homework_06.build.test.dir}"/>
+        <delete dir="${Homework_06.lib.dir}"/>
+        <delete dir="report"/>
+    </target>
+
+</project>

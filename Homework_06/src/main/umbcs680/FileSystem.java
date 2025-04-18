@@ -10,7 +10,7 @@ public class FileSystem{
 
     public FileSystem getFileSystem(){
         if (instance == null){
-            instace == new FileSystem();
+            instance = new FileSystem();
         }
         return instance;
     }

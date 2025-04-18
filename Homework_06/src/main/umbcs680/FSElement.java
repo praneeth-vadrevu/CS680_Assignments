@@ -8,7 +8,7 @@ public abstract class FSElement{
     protected LocalDateTime creationTime;
     protected Directory parent;
 
-    public void FSElement(Directory parent,String name,int size, LocalDateTime creationTime){
+    public  FSElement(Directory parent,String name,int size, LocalDateTime creationTime){
         this.parent = parent;
         this.name = name;
         this.creationTime = creationTime;
@@ -35,4 +35,3 @@ public abstract class FSElement{
     public abstract boolean isDirectory();
 }
 
-}
