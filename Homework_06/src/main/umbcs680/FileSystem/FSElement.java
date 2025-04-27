@@ -12,6 +12,7 @@ public abstract class FSElement{
         this.parent = parent;
         this.name = name;
         this.creationTime = creationTime;
+        this.size = size;
 
     }
 
