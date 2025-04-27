@@ -29,7 +29,7 @@ public class Directory extends FSElement {
     }
 
     public LinkedList<Directory> getSubDirectories() {
-        List<Directory> subDirs = new LinkedList<>();
+        LinkedList<Directory> subDirs = new LinkedList<>();
 
         for (FSElement element : this.children) {
             if (element.isDirectory()) {
@@ -44,7 +44,7 @@ public class Directory extends FSElement {
     }
 
     public LinkedList<File> getFiles() {
-        List <File> files = new LinkedList<>();
+        LinkedList <File> files = new LinkedList<>();
         for (FSElement element : children) {
             if (!element.isDirectory()) {
                 files.add((File) element);

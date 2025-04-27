@@ -1,0 +1,23 @@
+#ignore everything
+*
+
+Don't ignore these important files
+!build.xml
+!ivy.xml
+!.gitignore
+!Homework_06/src/main/umbcs680/FileSystem/*.java
+!Homework_06/src/test/umbcs680/FileSystem/*.java
+
+
+680_OOPSJava_VSPraneeth/.DS_Store
+680_OOPSJava_VSPraneeth/Homework_06/.DS_Store
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
