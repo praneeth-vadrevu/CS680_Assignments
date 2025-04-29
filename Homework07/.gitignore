@@ -1,5 +1,9 @@
 # Ignore everything
 *
+.idea/
+build/
+lib/
+*.DS_Store
 
 # But do NOT ignore these:
 !src/
