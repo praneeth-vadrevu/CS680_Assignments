@@ -1,3 +1,5 @@
+package umbcs680.hw09;
+
 public class Color {
     private int redScale;
     private int greenScale;

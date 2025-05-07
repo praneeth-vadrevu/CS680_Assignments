@@ -1,10 +1,12 @@
+package umbcs680.hw09;
+
 public class BinarizeAdjuster implements ColorAdjuster {
 
     @Override
     public Color adjust(Color color) {
-        int red = color.getRedScale();
-        int green = color.getGreenScale();
-        int blue = color.getBlueScale();
+        int red = (int) color.getRedScale();
+        int green = (int) color.getGreenScale();
+        int blue =(int) color.getBlueScale();
 
         // Convert to grayscale using simple average
         int gray = (red + green + blue) / 3;

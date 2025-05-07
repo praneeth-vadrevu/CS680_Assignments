@@ -1,8 +1,8 @@
-package umb.edu.cs680.hw09;
+package umbcs680.hw09;
 
 public class Images {
 
-     public Image transform(Image image, ColorAdjuster adjuster) {
+     public static Image transform(Image image, ColorAdjuster adjuster) {
           Image adjusted = new Image(image.getHeight(), image.getWidth());
 
           for (int y = 0; y < adjusted.getHeight(); y++) {
