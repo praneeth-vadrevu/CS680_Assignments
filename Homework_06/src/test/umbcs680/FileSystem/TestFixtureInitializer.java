@@ -1,9 +1,12 @@
+package umbcs680.FileSystem;
 import java.time.LocalDateTime;
+import java.time.*;
 
 public class TestFixtureInitializer {
 
     public static FileSystem createFS() {
         FileSystem fs = FileSystem.getFileSystem();
+        fs.getRootDirs().clear();
 
         Directory umbcs680 = new Directory(null, "umbcs680", 0, LocalDateTime.now());
         fs.appendRootDir(umbcs680);

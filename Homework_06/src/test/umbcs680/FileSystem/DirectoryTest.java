@@ -1,6 +1,9 @@
+package umbcs680.FileSystem;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,26 +16,25 @@ public class DirectoryTest {
         fs = TestFixtureInitializer.createFS();
     }
 
-    // Helper method to convert a Directory into String[] (name, size, creationTime)
+    // Helper method to convert a Directory into String[]
     private String[] dirToStringArray(Directory d) {
-        String[] dirInfo = {
+        return new String[] {
                 d.getName(),
                 String.valueOf(d.getSize()),
                 d.getCreationTime().toString()
         };
-        return dirInfo;
     }
 
     @Test
     public void verifyDirectoryEqualityRoot() {
-        Directory root = fs.getRootDirs().get(0); // umbcs680
+        Directory root = fs.getRootDirs().get(0);
         String[] expected = { "umbcs680", "0", root.getCreationTime().toString() };
         assertArrayEquals(expected, dirToStringArray(root));
     }
 
     @Test
     public void verifyDirectoryEqualityHome() {
-        Directory root = fs.getRootDirs().get(0); // umbcs680
+        Directory root = fs.getRootDirs().get(0);
         Directory home = null;
         for (FSElement e : root.getChildren()) {
             if (e instanceof Directory && e.getName().equals("hw01")) {
@@ -41,13 +43,36 @@ public class DirectoryTest {
             }
         }
         assertNotNull(home);
-
         String[] expected = { "hw01", "0", home.getCreationTime().toString() };
         assertArrayEquals(expected, dirToStringArray(home));
     }
 
+
+
+
+
+    @Test
+    public void getChildrenTest() {
+        fs = TestFixtureInitializer.createFS(); // 🔧 Reset state
+        Directory root = fs.getRootDirs().get(0);
+        List<FSElement> children = root.getChildren();
+        assertEquals(2, children.size()); // hw01, readme.md
+    }
+
+
+    @Test
+    public void countChildrenTest() {
+        fs = TestFixtureInitializer.createFS(); // 🔧 Reset state
+        Directory root = fs.getRootDirs().get(0);
+        assertEquals(2, root.countChildren());
+    }
+
+
     @Test
     public void appendChildTest() {
+
+        fs = TestFixtureInitializer.createFS();
+
         Directory root = fs.getRootDirs().get(0);
         Directory newDir = new Directory(root, "newDir", 0, LocalDateTime.now());
 
@@ -57,19 +82,6 @@ public class DirectoryTest {
 
         assertEquals(before + 1, after);
         assertTrue(root.getChildren().contains(newDir));
-    }
-
-    @Test
-    public void getChildrenTest() {
-        Directory root = fs.getRootDirs().get(0);
-        List<FSElement> children = root.getChildren();
-        assertEquals(2, children.size());
-    }
-
-    @Test
-    public void countChildrenTest() {
-        Directory root = fs.getRootDirs().get(0);
-        assertEquals(2, root.countChildren());
     }
 
     @Test
@@ -91,7 +103,7 @@ public class DirectoryTest {
     @Test
     public void getTotalSizeTest() {
         Directory root = fs.getRootDirs().get(0);
-        int expectedSize = 10 + 15 + 5 + 3; // A.java + B.java + build.xml + readme.md
+        int expectedSize = 10 + 15 + 5 + 3;  // A.java + B.java + build.xml + readme.md
         assertEquals(expectedSize, root.getTotalSize());
     }
 }

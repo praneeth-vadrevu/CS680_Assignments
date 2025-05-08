@@ -1,3 +1,4 @@
+package umbcs680.FileSystem;
 import java.time.*;
 import java.util.*;
 
@@ -15,9 +16,11 @@ public class Directory extends FSElement {
         return true;
     }
 
-    //function to add new children of the FSElement class to the List "children"
+    //function to add new children of the FSElement class to the List "children" which keeps a
+    // track of what files are in that particular directory
     public void appendChild(FSElement child) {
-        children.add(child);
+        this.children.add(child);
+        child.setParent(this);
     }
 
     public LinkedList<FSElement> getChildren() {

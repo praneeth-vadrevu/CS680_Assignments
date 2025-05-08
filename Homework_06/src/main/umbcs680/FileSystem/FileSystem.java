@@ -1,3 +1,4 @@
+package umbcs680.FileSystem;
 import java.util.*;
 
 public class FileSystem{
@@ -8,7 +9,7 @@ public class FileSystem{
 
     private FileSystem(){} //private constructor to avoid instantitation from outside.
 
-    public FileSystem getFileSystem(){
+    public static FileSystem getFileSystem(){
         if (instance == null){
             instance = new FileSystem();
         }

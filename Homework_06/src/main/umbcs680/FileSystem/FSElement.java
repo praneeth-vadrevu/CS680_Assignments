@@ -1,3 +1,4 @@
+package umbcs680.FileSystem;
 import java.io.*;
 import java.util.*;
 import java.time.*;
@@ -17,20 +18,36 @@ public abstract class FSElement{
     }
 
     public Directory getParent() {
-        return parent;
+        return this.parent;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public LocalDateTime getCreationTime() {
-        return creationTime;
+        return this.creationTime;
     }
+
+    public void setParent(Directory parent) {
+        this.parent = parent;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+//    public void setSize(int size) {
+//        this.size = size;
+//    }
+//
+//    public void setCreationTime(LocalDateTime creationTime) {
+//        this.creationTime = creationTime;
+//    }
 
     //This is the methods that needs to be overriden by the children classes in order to know whether they are a directory or no.
     public abstract boolean isDirectory();
