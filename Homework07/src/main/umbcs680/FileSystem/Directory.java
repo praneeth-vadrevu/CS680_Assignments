@@ -63,10 +63,16 @@ public class Directory extends FSElement {
     public int getTotalSize() {
         int totalSize = 0;
         for (FSElement elem : this.children) {
-            totalSize += elem.getSize();
+            if (elem instanceof Directory) {
+                totalSize += ((Directory) elem).getTotalSize(); // recurse
+            } else if (!(elem instanceof Link)) {
+                totalSize += elem.getSize();
+            }
         }
         return totalSize;
     }
+
+
 
     @Override
     public boolean isLink() {
