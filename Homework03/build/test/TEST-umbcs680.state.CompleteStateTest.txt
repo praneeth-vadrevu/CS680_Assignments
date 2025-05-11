@@ -1,0 +1,7 @@
+Testcase: umbcs680.state.CompleteStateTest
+Test: testStateRemainsCompleteAfterExecution() took 1 milli sec(s)
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 1 milli sec(s)
+------------- Standard Output ---------------
+Transitioning to state: CompleteState
+Compilation Complete!
+------------- ---------------- ---------------

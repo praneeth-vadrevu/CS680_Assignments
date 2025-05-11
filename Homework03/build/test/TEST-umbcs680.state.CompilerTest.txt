@@ -1,0 +1,11 @@
+Testcase: umbcs680.state.CompilerTest
+Test: testGettersAndSetters() took 0 milli sec(s)
+Test: testInitialStateIsLexingAndParsing() took 0 milli sec(s)
+Test: testExecutionDelegation() took 1 milli sec(s)
+Test: testStateTransition() took 0 milli sec(s)
+Tests run: 4, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 1 milli sec(s)
+------------- Standard Output ---------------
+Transitioning to state: CompleteState
+Compilation Complete!
+Transitioning to state: CompleteState
+------------- ---------------- ---------------
