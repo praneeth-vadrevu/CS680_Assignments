@@ -1,8 +1,7 @@
 package umbcs680.hw10;
 
 
- Generic Comparator Interface
- Defines a single method to compare two objects of type T.
+
 
 public interface Comparator<T> {
     /**

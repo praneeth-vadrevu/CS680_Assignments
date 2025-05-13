@@ -6,6 +6,7 @@ public class Car {
     private int year;
     private int mileage;
     private double price;
+    private int dominationCount;
 
     // Constructor
     public Car(String model, int year, int mileage, double price) {
@@ -31,6 +32,15 @@ public class Car {
     public double getPrice() {
         return price;
     }
+
+    public int getDominationCount() {
+        return dominationCount;
+    }
+
+    public void setDominationCount(int count) {
+        this.dominationCount = count;
+    }
+
 
     // toString for readable output
     @Override
