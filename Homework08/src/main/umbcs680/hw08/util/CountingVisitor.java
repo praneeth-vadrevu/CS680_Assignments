@@ -1,3 +1,5 @@
+package umbcs680.hw08.util;
+
 import umbcs680.hw08.fs.*;
 
 public class CountingVisitor implements FSVisitor {
@@ -12,9 +14,6 @@ public class CountingVisitor implements FSVisitor {
     @Override
     public void visit(Directory dir) {
         dirCount++;
-        for (FSElement e : dir.getChildren()) {
-            e.accept(this); // recursively visit children
-        }
     }
 
     @Override

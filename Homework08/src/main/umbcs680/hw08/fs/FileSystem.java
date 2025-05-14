@@ -3,12 +3,14 @@ package umbcs680.hw08.fs;
 import java.util.LinkedList;
 
 public class FileSystem {
+
     private static FileSystem instance = null;
     private LinkedList<Directory> rootDirs = new LinkedList<>();
 
-    // Singleton pattern to ensure only one FileSystem exists
+    // Private constructor for Singleton Pattern
     private FileSystem() {}
 
+    // Singleton accessor
     public static FileSystem getFileSystem() {
         if (instance == null) {
             instance = new FileSystem();
@@ -16,18 +18,26 @@ public class FileSystem {
         return instance;
     }
 
-    public void appendRootDir(Directory root) {
-        this.rootDirs.add(root);
-    }
-
+    // Return root directories
     public LinkedList<Directory> getRootDirs() {
-        return this.rootDirs;
+        return rootDirs;
     }
 
-    // Accept a visitor and apply it to all root directories
+    // Add a root directory
+    public void appendRootDir(Directory root) {
+        rootDirs.add(root);
+    }
+
+    // Clear all root directories - Added for clean state management in tests
+    public void clearRootDirs() {
+        rootDirs.clear();
+    }
+
+
     public void accept(FSVisitor visitor) {
         for (Directory root : rootDirs) {
-            root.accept(visitor);  // This triggers the recursive traversal
+            root.accept(visitor);  // Propagate the visitor to each root directory
         }
     }
+
 }

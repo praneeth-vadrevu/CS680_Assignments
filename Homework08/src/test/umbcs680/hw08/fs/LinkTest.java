@@ -1,40 +1,60 @@
-package umbcs680.FileSystem;
+package umbcs680.hw08.fs;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
 public class LinkTest {
 
     private static FileSystem fs;
+    private static Link linkToReadme;
 
     @BeforeAll
-    public static void setUpFS() {
-        fs = TestFixtureInitializer.createFS();
+    public static void setUp() {
+        fs = FileSystem.getFileSystem();
+        fs.clearRootDirs();               // Clear first
+        fs = TestFixtureInitializer.createFS();  // Properly initialize
+
+        Directory hw01 = fs.getRootDirs().getFirst().getSubDirectories().getFirst();
+        linkToReadme = hw01.getLinks().getFirst();
+    }
+
+
+    @Test
+    public void testLinkConstructor() {
+        File target = new File(null, "dummy.txt", 100, LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        Link testLink = new Link(null, "dummyLink", 0, now, target);
+
+        assertEquals("dummyLink", testLink.getName());
+        assertEquals(target, testLink.getTarget());
+        assertEquals(100, testLink.getSize());  // Delegates to target
     }
 
     @Test
-    public void verifyLinkTarget() {
-        Directory root = fs.getRootDirs().getFirst();
-        Directory hw01 = (Directory) root.getChildren().getFirst();
-        Link linkToReadme = (Link) hw01.getChildren().stream()
-                .filter(f -> f instanceof Link)
-                .findFirst().orElse(null);
-
-        assertNotNull(linkToReadme);
+    public void testGetName() {
         assertEquals("linkToReadme", linkToReadme.getName());
+    }
+
+    @Test
+    public void testGetTarget() {
         assertEquals("readme.md", linkToReadme.getTarget().getName());
     }
 
     @Test
-    public void isLinkTest() {
-        Directory hw01 = (Directory) fs.getRootDirs().getFirst().getChildren().getFirst();
-        Link linkToReadme = (Link) hw01.getChildren().stream()
-                .filter(f -> f instanceof Link)
-                .findFirst().orElse(null);
+    public void testIsDirectoryDelegation() {
+        assertFalse(linkToReadme.isDirectory());  // Target is a file, so false
+    }
 
-        assertNotNull(linkToReadme);
+    @Test
+    public void testIsLink() {
         assertTrue(linkToReadme.isLink());
+    }
+
+    @Test
+    public void testDelegatedSize() {
+        assertEquals(75, linkToReadme.getSize());  // Should match readme.md size
     }
 }
