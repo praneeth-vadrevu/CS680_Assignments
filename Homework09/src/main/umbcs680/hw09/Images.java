@@ -19,4 +19,3 @@ public class Images {
 }
 
 
-//should Images be a static method?
