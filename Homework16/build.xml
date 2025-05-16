@@ -31,13 +31,13 @@
     <target name="compile" depends="init">
         <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
             <classpath refid="classpath"/>
-            <include name="umbcs680/hw08/fs/*.java"/>
-            <include name="umbcs680/hw08/util/*.java"/>
+            <include name="umbcs680/hw16/fs/*.java"/>
+            <include name="umbcs680/hw16/util/*.java"/>
         </javac>
         <javac srcdir="${src.test}" destdir="${bin.test}" includeAntRuntime="no">
             <classpath refid="classpath"/>
-            <include name="umbcs680/hw08/fs/*.java"/>
-            <include name="umbcs680/hw08/util/*.java"/>
+            <include name="umbcs680/hw16/fs/*.java"/>
+            <include name="umbcs680/hw16/util/*.java"/>
         </javac>
     </target>
 
@@ -46,8 +46,8 @@
             <classpath refid="classpath" />
             <testclasses outputdir="${bin.test}">
                 <fileset dir="${bin.test}">
-                    <include name="umbcs680/hw08/fs/*Test.class" />
-                    <include name="umbcs680/hw08/util/*Test.class" />
+                    <include name="umbcs680/hw16/fs/*Test.class" />
+                    <include name="umbcs680/hw16/util/*Test.class" />
                 </fileset>
             </testclasses>
             <listener type="legacy-plain" sendSysOut="true" />
@@ -65,8 +65,8 @@
 
     <target name="clean" depends="test">
         <delete includeemptydirs="true">
-            <fileset dir="${bin}/umbcs680/hw08/fs" includes="**/*"/>
-            <fileset dir="${bin.test}/umbcs680/hw08/fs" includes="**/*"/>
+            <fileset dir="${bin}/umbcs680/hw16/fs" includes="**/*"/>
+            <fileset dir="${bin.test}/umbcs680/hw16/fs" includes="**/*"/>
         </delete>
     </target>
 
