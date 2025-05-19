@@ -30,16 +30,8 @@ public class CarTest {
     }
 
     @Test
-    public void testDominationCountGetterAndSetter() {
-        Car car = new Car("Corolla", 2015, 50000, 15000.0);
-        car.setDominationCount(3);
-        assertEquals(3, car.getDominationCount());
-    }
-
-    @Test
     public void testToString() {
         Car car = new Car("Corolla", 2015, 50000, 15000.0);
-        String expected = "Corolla - Year: 2015, Mileage: 50000, Price: $15000.0";
-        assertEquals(expected, car.toString());
+        assertEquals("Corolla - Year: 2015, Mileage: 50000, Price: $15000.0", car.toString());
     }
 }

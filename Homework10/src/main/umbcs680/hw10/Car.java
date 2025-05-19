@@ -1,6 +1,7 @@
 package umbcs680.hw10;
 
-// Car class representing a car with price, year, and mileage
+import java.util.List;
+
 public class Car {
     private String model;
     private int year;
@@ -8,7 +9,6 @@ public class Car {
     private double price;
     private int dominationCount;
 
-    // Constructor
     public Car(String model, int year, int mileage, double price) {
         this.model = model;
         this.year = year;
@@ -16,7 +16,6 @@ public class Car {
         this.price = price;
     }
 
-    // Getters
     public String getModel() {
         return model;
     }
@@ -37,14 +36,33 @@ public class Car {
         return dominationCount;
     }
 
-    public void setDominationCount(int count) {
+    public void setDominationCount(List<Car> cars) {
+        int count = 0;
+        for (Car other : cars) {
+            if (this == other) continue;
+
+            boolean betterInAtLeastOne = false;
+            boolean notWorseInAll = true;
+
+            if (other.getPrice() < this.price) betterInAtLeastOne = true;
+            else if (other.getPrice() > this.price) notWorseInAll = false;
+
+            if (other.getYear() > this.year) betterInAtLeastOne = true;
+            else if (other.getYear() < this.year) notWorseInAll = false;
+
+            if (other.getMileage() < this.mileage) betterInAtLeastOne = true;
+            else if (other.getMileage() > this.mileage) notWorseInAll = false;
+
+            if (notWorseInAll && betterInAtLeastOne) {
+                count++;
+            }
+        }
         this.dominationCount = count;
     }
 
-
-    // toString for readable output
     @Override
     public String toString() {
         return model + " - Year: " + year + ", Mileage: " + mileage + ", Price: $" + price;
     }
 }
+

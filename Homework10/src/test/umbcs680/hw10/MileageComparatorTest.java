@@ -28,19 +28,4 @@ public class MileageComparatorTest {
         MileageComparator comparator = new MileageComparator();
         assertTrue(comparator.compare(car1, car2) > 0);
     }
-
-    // --- Additional Getter and Setter Coverage ---
-
-    @Test
-    public void testMileageGetter() {
-        Car car = new Car("Car A", 2020, 30000, 15000.0);
-        assertEquals(30000, car.getMileage());
-    }
-
-    @Test
-    public void testSetAndGetDominationCount() {
-        Car car = new Car("Car A", 2020, 30000, 15000.0);
-        car.setDominationCount(2);
-        assertEquals(2, car.getDominationCount());
-    }
 }
