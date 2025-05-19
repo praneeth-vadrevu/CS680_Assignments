@@ -38,25 +38,23 @@ public class Car {
 
     public void setDominationCount(List<Car> cars) {
         int count = 0;
+
         for (Car other : cars) {
             if (this == other) continue;
 
-            boolean betterInAtLeastOne = false;
-            boolean notWorseInAll = true;
+            boolean notWorseInAll = other.price <= this.price &&
+                    other.year >= this.year &&
+                    other.mileage <= this.mileage;
 
-            if (other.getPrice() < this.price) betterInAtLeastOne = true;
-            else if (other.getPrice() > this.price) notWorseInAll = false;
-
-            if (other.getYear() > this.year) betterInAtLeastOne = true;
-            else if (other.getYear() < this.year) notWorseInAll = false;
-
-            if (other.getMileage() < this.mileage) betterInAtLeastOne = true;
-            else if (other.getMileage() > this.mileage) notWorseInAll = false;
+            boolean betterInAtLeastOne = other.price < this.price ||
+                    other.year > this.year ||
+                    other.mileage > this.mileage;
 
             if (notWorseInAll && betterInAtLeastOne) {
                 count++;
             }
         }
+
         this.dominationCount = count;
     }
 
