@@ -1,15 +1,12 @@
 package umbcs680.hw11.fs;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Comparator;
 
-public class AscendingSizeComparatorStrategy implements FSElementComparatorStrategy {
+public class AscendingSizeComparatorStrategy implements Comparator<FSElement> {
 
     @Override
-    public List<FSElement> sort(List<FSElement> elements) {
-        Collections.sort(elements, (e1, e2) -> Integer.compare(e1.getSize(), e2.getSize()));
-        return elements;
+    public int compare(FSElement e1, FSElement e2) {
+        return Integer.compare(e1.getSize(), e2.getSize());
     }
 }
-
 

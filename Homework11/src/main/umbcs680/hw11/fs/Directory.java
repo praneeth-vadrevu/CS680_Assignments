@@ -1,6 +1,7 @@
 package umbcs680.hw11.fs;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +27,13 @@ public class Directory extends FSElement {
         return this.children;
     }
 
+
+    public List<FSElement> getChildren(Comparator<FSElement> comparator){
+        List<FSElement> sortedList = getChildren();
+        sortedList.sort(comparator);
+        return sortedList;
+    }
+
     public List<Directory> getSubDirectories() {
         List<Directory> subDirs = new LinkedList<>();
         for (FSElement elem : this.children) {
@@ -35,6 +43,15 @@ public class Directory extends FSElement {
         }
         return subDirs;
     }
+
+
+    public List<Directory> getSubDirectories(Comparator<FSElement> comparator){
+        List<Directory> sortedList = getSubDirectories();
+        sortedList.sort(comparator);
+        return sortedList;
+    }
+
+
 
     public List<File> getFiles() {
         List<File> files = new LinkedList<>();
@@ -46,6 +63,13 @@ public class Directory extends FSElement {
         return files;
     }
 
+
+    public List<File> getFiles(Comparator<FSElement> comparator){
+        List<File> sortedList = getFiles();
+        sortedList.sort(comparator);
+        return sortedList;
+    }
+
     public List<Link> getLinks() {
         List<Link> links = new LinkedList<>();
         for (FSElement elem : this.children) {
@@ -54,6 +78,12 @@ public class Directory extends FSElement {
             }
         }
         return links;
+    }
+
+    public List<Link> getLinks(Comparator<FSElement> comparator){
+        List<Link> sortedList = getLinks();
+        sortedList.sort(comparator);
+        return sortedList;
     }
 
     public int countChildren() {
@@ -85,5 +115,6 @@ public class Directory extends FSElement {
     public boolean isLink() {
         return false;
     }
-
 }
+
+

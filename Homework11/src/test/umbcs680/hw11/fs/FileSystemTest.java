@@ -3,6 +3,7 @@ package umbcs680.hw11.fs;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,9 +14,8 @@ public class FileSystemTest {
 
     @BeforeAll
     public static void setUp() {
-        fs = TestFixtureInitializer.createFS(); // Already clears and initializes
+        fs = TestFixtureInitializer.createFS();
     }
-
 
     @Test
     public void testSingletonInstance() {
@@ -45,29 +45,27 @@ public class FileSystemTest {
     @Test
     public void testAlphabeticalComparatorOnRootDirs() {
         List<FSElement> roots = new LinkedList<>(fs.getRootDirs());
-        List<FSElement> sorted = new AlphabeticalNameComparatorStrategy().sort(roots);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) <= 0);
+        roots.sort(new AlphabeticalNameComparatorStrategy());
+        for (int i = 1; i < roots.size(); i++) {
+            assertTrue(roots.get(i - 1).getName().compareToIgnoreCase(roots.get(i).getName()) <= 0);
         }
     }
 
     @Test
     public void testReverseAlphabeticalComparatorOnRootDirs() {
         List<FSElement> roots = new LinkedList<>(fs.getRootDirs());
-        List<FSElement> sorted = new ReverseAlphabeticalComparatorStrategy().sort(roots);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) >= 0);
+        roots.sort(new ReverseAlphabeticalComparatorStrategy());
+        for (int i = 1; i < roots.size(); i++) {
+            assertTrue(roots.get(i - 1).getName().compareToIgnoreCase(roots.get(i).getName()) >= 0);
         }
     }
 
     @Test
     public void testCreationTimeComparatorOnRootDirs() {
         List<FSElement> roots = new LinkedList<>(fs.getRootDirs());
-        List<FSElement> sorted = new CreationTimeComparatorStrategy().sort(roots);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(
-                    !sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime())
-            );
+        roots.sort(new CreationTimeComparatorStrategy());
+        for (int i = 1; i < roots.size(); i++) {
+            assertFalse(roots.get(i - 1).getCreationTime().isAfter(roots.get(i).getCreationTime()));
         }
     }
 }

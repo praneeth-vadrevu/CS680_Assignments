@@ -19,12 +19,8 @@ public class LinkTest {
         fs = TestFixtureInitializer.createFS();
         Directory hw01 = fs.getRootDirs().getFirst().getSubDirectories().getFirst();
         linkToReadme = hw01.getLinks().getFirst();
-
-        // Initialize links with actual links from the hw01 directory
         links = new LinkedList<>(hw01.getLinks());
     }
-
-
 
     @Test
     public void testLinkConstructor() {
@@ -34,7 +30,7 @@ public class LinkTest {
 
         assertEquals("dummyLink", testLink.getName());
         assertEquals(target, testLink.getTarget());
-        assertEquals(100, testLink.getSize());  // Delegates to target size
+        assertEquals(100, testLink.getSize());
     }
 
     @Test
@@ -64,27 +60,25 @@ public class LinkTest {
 
     @Test
     public void testAlphabeticalComparator() {
-        List<FSElement> sorted = new AlphabeticalNameComparatorStrategy().sort(links);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) <= 0);
+        links.sort(new AlphabeticalNameComparatorStrategy());
+        for (int i = 1; i < links.size(); i++) {
+            assertTrue(links.get(i - 1).getName().compareToIgnoreCase(links.get(i).getName()) <= 0);
         }
     }
 
     @Test
     public void testReverseAlphabeticalComparator() {
-        List<FSElement> sorted = new ReverseAlphabeticalComparatorStrategy().sort(links);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) >= 0);
+        links.sort(new ReverseAlphabeticalComparatorStrategy());
+        for (int i = 1; i < links.size(); i++) {
+            assertTrue(links.get(i - 1).getName().compareToIgnoreCase(links.get(i).getName()) >= 0);
         }
     }
 
     @Test
     public void testCreationTimeComparator() {
-        List<FSElement> sorted = new CreationTimeComparatorStrategy().sort(links);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(
-                    !sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime())
-            );
+        links.sort(new CreationTimeComparatorStrategy());
+        for (int i = 1; i < links.size(); i++) {
+            assertFalse(links.get(i - 1).getCreationTime().isAfter(links.get(i).getCreationTime()));
         }
     }
 }

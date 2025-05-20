@@ -16,11 +16,10 @@ public class FileTest {
 
     @BeforeAll
     public static void setUp() {
-        fs = TestFixtureInitializer.createFS(); // Already clears and initializes
+        fs = TestFixtureInitializer.createFS();
         umbcs680 = fs.getRootDirs().getFirst();
         readme = umbcs680.getFiles().getFirst();
     }
-
 
     private String[] fileToStringArray(File file) {
         return new String[] {
@@ -79,47 +78,45 @@ public class FileTest {
     @Test
     public void testAscendingSizeComparator() {
         List<FSElement> files = new LinkedList<>(umbcs680.getFiles());
-        List<FSElement> sorted = new AscendingSizeComparatorStrategy().sort(files);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getSize() <= sorted.get(i).getSize());
+        files.sort(new AscendingSizeComparatorStrategy());
+        for (int i = 1; i < files.size(); i++) {
+            assertTrue(files.get(i - 1).getSize() <= files.get(i).getSize());
         }
     }
 
     @Test
     public void testDescendingSizeComparator() {
         List<FSElement> files = new LinkedList<>(umbcs680.getFiles());
-        List<FSElement> sorted = new DescendingSizeComparatorStrategy().sort(files);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getSize() >= sorted.get(i).getSize());
+        files.sort(new DescendingSizeComparatorStrategy());
+        for (int i = 1; i < files.size(); i++) {
+            assertTrue(files.get(i - 1).getSize() >= files.get(i).getSize());
         }
     }
 
     @Test
     public void testAlphabeticalComparator() {
         List<FSElement> files = new LinkedList<>(umbcs680.getFiles());
-        List<FSElement> sorted = new AlphabeticalNameComparatorStrategy().sort(files);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) <= 0);
+        files.sort(new AlphabeticalNameComparatorStrategy());
+        for (int i = 1; i < files.size(); i++) {
+            assertTrue(files.get(i - 1).getName().compareToIgnoreCase(files.get(i).getName()) <= 0);
         }
     }
 
     @Test
     public void testReverseAlphabeticalComparator() {
         List<FSElement> files = new LinkedList<>(umbcs680.getFiles());
-        List<FSElement> sorted = new ReverseAlphabeticalComparatorStrategy().sort(files);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) >= 0);
+        files.sort(new ReverseAlphabeticalComparatorStrategy());
+        for (int i = 1; i < files.size(); i++) {
+            assertTrue(files.get(i - 1).getName().compareToIgnoreCase(files.get(i).getName()) >= 0);
         }
     }
 
     @Test
     public void testCreationTimeComparator() {
         List<FSElement> files = new LinkedList<>(umbcs680.getFiles());
-        List<FSElement> sorted = new CreationTimeComparatorStrategy().sort(files);
-        for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(
-                    !sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime())
-            );
+        files.sort(new CreationTimeComparatorStrategy());
+        for (int i = 1; i < files.size(); i++) {
+            assertFalse(files.get(i - 1).getCreationTime().isAfter(files.get(i).getCreationTime()));
         }
     }
 }

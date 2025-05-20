@@ -1,14 +1,12 @@
 package umbcs680.hw11.fs;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Comparator;
 
-public class AlphabeticalNameComparatorStrategy implements FSElementComparatorStrategy {
+public class AlphabeticalNameComparatorStrategy implements Comparator<FSElement> {
 
     @Override
-    public List<FSElement> sort(List<FSElement> elements) {
-        Collections.sort(elements, (e1, e2) -> e1.getName().compareToIgnoreCase(e2.getName()));
-        return elements;
+    public int compare(FSElement e1, FSElement e2) {
+        return e1.getName().compareToIgnoreCase(e2.getName());
     }
 }
 

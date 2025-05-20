@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 public class DirectoryTest {
 
@@ -125,8 +125,7 @@ public class DirectoryTest {
 
     @Test
     public void testAscendingSizeComparator() {
-        List<FSElement> children = root.getChildren();
-        List<FSElement> sorted = new AscendingSizeComparatorStrategy().sort(children);
+        List<FSElement> sorted = root.getChildren(new AscendingSizeComparatorStrategy());
         for (int i = 1; i < sorted.size(); i++) {
             assertTrue(sorted.get(i - 1).getSize() <= sorted.get(i).getSize());
         }
@@ -134,8 +133,7 @@ public class DirectoryTest {
 
     @Test
     public void testDescendingSizeComparator() {
-        List<FSElement> children = root.getChildren();
-        List<FSElement> sorted = new DescendingSizeComparatorStrategy().sort(children);
+        List<FSElement> sorted = root.getChildren(new DescendingSizeComparatorStrategy());
         for (int i = 1; i < sorted.size(); i++) {
             assertTrue(sorted.get(i - 1).getSize() >= sorted.get(i).getSize());
         }
@@ -143,17 +141,15 @@ public class DirectoryTest {
 
     @Test
     public void testReverseAlphabeticalComparator() {
-        List<FSElement> children = root.getChildren();
-        List<FSElement> sorted = new ReverseAlphabeticalComparatorStrategy().sort(children);
+        List<FSElement> sorted = root.getChildren(new ReverseAlphabeticalComparatorStrategy());
         for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(sorted.get(i - 1).getName().compareTo(sorted.get(i).getName()) >= 0);
+            assertTrue(sorted.get(i - 1).getName().compareToIgnoreCase(sorted.get(i).getName()) >= 0);
         }
     }
 
     @Test
     public void testCreationTimeComparator() {
-        List<FSElement> children = root.getChildren();
-        List<FSElement> sorted = new CreationTimeComparatorStrategy().sort(children);
+        List<FSElement> sorted = root.getChildren(new CreationTimeComparatorStrategy());
         for (int i = 1; i < sorted.size(); i++) {
             assertTrue(!sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime()));
         }
