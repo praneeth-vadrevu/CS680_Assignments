@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
-
 public class DirectoryTest {
 
     private static FileSystem fs;
@@ -16,15 +14,13 @@ public class DirectoryTest {
     private static Directory hw01;
     private static Directory src;
 
-
     @BeforeAll
     public static void setUp() {
-        fs = TestFixtureInitializer.createFS(); // Already clears and initializes
-        root = fs.getRootDirs().getFirst();     // Will now succeed
+        fs = TestFixtureInitializer.createFS();
+        root = fs.getRootDirs().getFirst();
         hw01 = root.getSubDirectories().getFirst();
         src = hw01.getSubDirectories().getFirst();
     }
-
 
     @Test
     public void testDirectoryConstructor() {
@@ -80,19 +76,40 @@ public class DirectoryTest {
     @Test
     public void testGetSubDirectories() {
         List<Directory> subDirs = root.getSubDirectories();
-        assertTrue(subDirs.stream().anyMatch(d -> d.getName().equals("hw01")));
+        boolean found = false;
+        for (Directory d : subDirs) {
+            if (d.getName().equals("hw01")) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
     public void testGetFiles() {
         List<File> files = root.getFiles();
-        assertTrue(files.stream().anyMatch(f -> f.getName().equals("readme.md")));
+        boolean found = false;
+        for (File f : files) {
+            if (f.getName().equals("readme.md")) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
     public void testGetLinks() {
         List<Link> links = hw01.getLinks();
-        assertTrue(links.stream().anyMatch(l -> l.getName().equals("linkToReadme")));
+        boolean found = false;
+        for (Link l : links) {
+            if (l.getName().equals("linkToReadme")) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -138,11 +155,8 @@ public class DirectoryTest {
         List<FSElement> children = root.getChildren();
         List<FSElement> sorted = new CreationTimeComparatorStrategy().sort(children);
         for (int i = 1; i < sorted.size(); i++) {
-            assertTrue(
-                    !sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime())
-            );
+            assertTrue(!sorted.get(i - 1).getCreationTime().isAfter(sorted.get(i).getCreationTime()));
         }
     }
 }
-
 
