@@ -27,10 +27,11 @@ public abstract class Observable<T> {
     }
 
     public void notifyObservers(T event) {
-        for(Observer<T> ob: observers) {
-            ob.update(this, event);
-        }
-//		observers.forEach( (observer)->{observer.update(this, event);} );
+//        for(Observer<T> ob: observers) {
+//            ob.update(this, event);
+//        }
+		observers.forEach( (observer)->{observer.update(this, event);} );
     }
 
 }
+

@@ -11,7 +11,7 @@ public class FlightStatusTracker extends Observable<String> {
     public void setStatus(String newStatus) {
         this.status = newStatus;
         System.out.println("Flight " + flightNumber + " status changed to: " + newStatus);
-        notifyObservers(newStatus); // Notify all observers
+        notifyObservers(newStatus);
     }
 
     public String getFlightNumber() {
@@ -21,5 +21,4 @@ public class FlightStatusTracker extends Observable<String> {
     public String getStatus() {
         return status;
     }
-
 }

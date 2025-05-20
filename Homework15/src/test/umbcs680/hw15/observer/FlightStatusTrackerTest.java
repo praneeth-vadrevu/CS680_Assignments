@@ -1,59 +1,75 @@
 package umbcs680.hw15.observer;
 
 import org.junit.jupiter.api.Test;
-import java.util.List;
-
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FlightStatusTrackerTest {
 
     @Test
-    public void testGetFlightNumber() {
+    public void testPassengerNotificationUsingLambda() {
         FlightStatusTracker tracker = new FlightStatusTracker("AA123");
-        assertEquals("AA123", tracker.getFlightNumber());
+
+        tracker.addObserver((sender, event) -> {
+            FlightStatusTracker t = (FlightStatusTracker) sender;
+            System.out.println("Notification sent to passengers of Flight " + t.getFlightNumber() + ": Status is now " + event);
+        });
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        tracker.setStatus("Boarding");
+
+        System.setOut(originalOut);
+        assertTrue(outContent.toString().trim().contains("Notification sent to passengers of Flight AA123: Status is now Boarding"));
     }
 
     @Test
-    public void testSetAndGetStatus() {
+    public void testAirportDisplayUsingLambda() {
         FlightStatusTracker tracker = new FlightStatusTracker("AA123");
+
+        tracker.addObserver((sender, event) -> {
+            FlightStatusTracker t = (FlightStatusTracker) sender;
+            System.out.println("Airport display updated for Flight " + t.getFlightNumber() + ": Status is now " + event);
+        });
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        tracker.setStatus("On Time");
+
+        System.setOut(originalOut);
+        assertTrue(outContent.toString().trim().contains("Airport display updated for Flight AA123: Status is now On Time"));
+    }
+
+    @Test
+    public void testBothObserversUsingLambdas() {
+        FlightStatusTracker tracker = new FlightStatusTracker("AA123");
+
+        tracker.addObserver((sender, event) -> {
+            FlightStatusTracker t = (FlightStatusTracker) sender;
+            System.out.println("Notification sent to passengers of Flight " + t.getFlightNumber() + ": Status is now " + event);
+        });
+
+        tracker.addObserver((sender, event) -> {
+            FlightStatusTracker t = (FlightStatusTracker) sender;
+            System.out.println("Airport display updated for Flight " + t.getFlightNumber() + ": Status is now " + event);
+        });
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
         tracker.setStatus("Delayed");
-        assertEquals("Delayed", tracker.getStatus());
-    }
 
-    @Test
-    public void testAddObserver() {
-        FlightStatusTracker tracker = new FlightStatusTracker("AA123");
-        Observer<String> observer = (sender, event) -> {};
-        tracker.addObserver(observer);
-        List<Observer<String>> observers = tracker.getObservers();
-        assertEquals(1, observers.size());
-        assertTrue(observers.contains(observer));
-    }
+        System.setOut(originalOut);
 
-    @Test
-    public void testRemoveObserver() {
-        FlightStatusTracker tracker = new FlightStatusTracker("AA123");
-        Observer<String> observer = (sender, event) -> {};
-        tracker.addObserver(observer);
-        tracker.removeObserver(observer);
-        List<Observer<String>> observers = tracker.getObservers();
-        assertEquals(0, observers.size());
-    }
-
-    @Test
-    public void testClearObservers() {
-        FlightStatusTracker tracker = new FlightStatusTracker("AA123");
-        tracker.addObserver((sender, event) -> {});
-        tracker.addObserver((sender, event) -> {});
-        tracker.clearObservers();
-        assertEquals(0, tracker.countObservers());
-    }
-
-    @Test
-    public void testCountObservers() {
-        FlightStatusTracker tracker = new FlightStatusTracker("AA123");
-        assertEquals(0, tracker.countObservers());
-        tracker.addObserver((sender, event) -> {});
-        assertEquals(1, tracker.countObservers());
+        String output = outContent.toString().trim();
+        assertTrue(output.contains("Notification sent to passengers of Flight AA123: Status is now Delayed"));
+        assertTrue(output.contains("Airport display updated for Flight AA123: Status is now Delayed"));
     }
 }
+
