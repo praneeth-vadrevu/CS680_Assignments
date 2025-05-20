@@ -44,7 +44,7 @@ public class Car {
 
             boolean notWorseInAll = other.price <= this.price &&
                     other.year >= this.year &&
-                    other.mileage <= this.mileage;
+                    other.mileage >= this.mileage;
 
             boolean betterInAtLeastOne = other.price < this.price ||
                     other.year > this.year ||
