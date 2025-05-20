@@ -14,21 +14,18 @@ public class DirectoryTest {
     private static Directory hw01;
     private static Directory src;
 
-
     @BeforeAll
     public static void setUp() {
         fs = FileSystem.getFileSystem();
-        fs.clearRootDirs();  // Clear previous state first
-        fs = TestFixtureInitializer.createFS();  // Then re-initialize it properly
+        fs.clearRootDirs();
+        fs = TestFixtureInitializer.createFS();
         root = fs.getRootDirs().getFirst();
         hw01 = root.getSubDirectories().getFirst();
         src = hw01.getSubDirectories().getFirst();
     }
 
-
-    // Helper to format Directory properties into String[]
     private String[] dirToStringArray(Directory d) {
-        return new String[] { d.getName(), String.valueOf(d.getSize()), d.getCreationTime().toString() };
+        return new String[]{ d.getName(), String.valueOf(d.getSize()), d.getCreationTime().toString() };
     }
 
     @Test
@@ -86,19 +83,40 @@ public class DirectoryTest {
     @Test
     public void testGetSubDirectories() {
         List<Directory> subDirs = root.getSubDirectories();
-        assertTrue(subDirs.stream().anyMatch(d -> d.getName().equals("hw01")));
+        boolean found = false;
+        for (Directory d : subDirs) {
+            if ("hw01".equals(d.getName())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
     public void testGetFiles() {
         List<File> files = root.getFiles();
-        assertTrue(files.stream().anyMatch(f -> f.getName().equals("readme.md")));
+        boolean found = false;
+        for (File f : files) {
+            if ("readme.md".equals(f.getName())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
     public void testGetLinks() {
         List<Link> links = hw01.getLinks();
-        assertTrue(links.stream().anyMatch(l -> l.getName().equals("linkToReadme")));
+        boolean found = false;
+        for (Link l : links) {
+            if ("linkToReadme".equals(l.getName())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -109,7 +127,6 @@ public class DirectoryTest {
 
     @Test
     public void testGetTotalSize() {
-        // Recursively calculated: A.java (100) + B.java (200) + build.xml (50) + readme.md (75) = 425
         assertEquals(425, root.getTotalSize());
     }
 }
